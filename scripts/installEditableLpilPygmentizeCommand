@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# This bash script uses the current working directory to create a simple
+# script to run the lpilPygmentizer command anywhere in a user's
+# workspace.
+
+##########################################################################
+
+recordcmdScript=$(pwd)/.venv/bin/lpilPygmentize
+
+cat << CMD_SCRIPT > $HOME/.local/bin/lpilPygmentize
+#!/bin/sh
+
+# This shell script was created by the pygments-tools tool
+#       './scripts/installEditableLpilPygmentizeCommands'
+# script.
+
+exec $recordcmdScript \$@
+CMD_SCRIPT
+
+chmod a+x $HOME/.local/bin/lpilPygmentize
+
+##########################################################################
+
+echo ""
+echo "Editable lpilPygmentize command has been created"
+echo ""

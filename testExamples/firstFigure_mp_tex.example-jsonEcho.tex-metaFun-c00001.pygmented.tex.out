@@ -1,0 +1,7 @@
+This is silly
+% !TEX root    = firstFigure_mp.tex
+% !TEX program = metafun
+\startMPpage
+fill fullcircle xyscaled (8cm,1cm) withcolor "darkred" ;
+draw textext("\bf This is text A") withcolor "white" ;
+\stopMPpage
