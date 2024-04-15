@@ -32,20 +32,23 @@ knownLpilLexers = {
 
 def usage() :
   print("""
-  usage: lpilPygmentizer [-h,--help] <lexerName> <inputFile> <outputFile> [<options>]
+  usage: lpilPygmentizer [-h,--help] <lexerName> <formatterName> <inputFile> <outputFile> [<options>]
 
   where:
 
-    lexerName   is the name of a builtin Pygments Lexer 
-                OR one of:
+    lexerName     is the name of a builtin Pygments Lexer
+                  OR one of:
 
-                  MetaFunLexer
-              
-    inputFile   is the path to a file to be pygmentized
-    
-    outputFile  is the path to a file to which to write the pygmentized result.
-  
-    options     (optional) collection of pygments LaTeX formatter options
+                    MetaFunLexer
+
+
+    formatterName is the name of the builtin Pygments Lexer
+
+    inputFile     is the path to a file to be pygmentized
+
+    outputFile    is the path to a file to which to write the pygmentized result.
+
+    options       (optional) collection of pygments LaTeX formatter options
 
   options:
     -h, --help   This help text
@@ -57,18 +60,20 @@ def cli() :
   if len(sys.argv) < 4 : usage()
   if -1 < sys.argv[1].find('-h') : usage()
 
-  lexerName  = sys.argv[1]
-  inputPath  = sys.argv[2]
-  outputPath = sys.argv[3]
+  lexerName      = sys.argv[1]
+  formatterName  = sys.argv[2]
+  inputPath      = sys.argv[3]
+  outputPath     = sys.argv[4]
 
   opts = None
-  if 4 < len(sys.argv) :
-    opts = sys.argv[4]
+  if 5 < len(sys.argv) :
+    opts = sys.argv[5]
 
   print( "lpilPygmentizer")
-  print(f"    from: {inputPath}")
+  print(f"     from: {inputPath}")
   print(f"       to: {outputPath}")
-  print(f"    using: {lexerName}")
+  print(f"    lexer: {lexerName}")
+  print(f"formatter: {formatterName}")
   if opts : print(f"  options: {opts}")
 
   if lexerName.lower() in knownLpilLexers :
@@ -80,7 +85,7 @@ def cli() :
   if -1 < lexerName.find(':') :
     # we have a relative path and a className
     lexerPath, lexerName = lexerName.split(':')
-    try : 
+    try :
       theLexer = load_lexer_from_file(lexerPath, lexername=lexerName)
     except Exception as err :
       print(repr(err))
@@ -94,7 +99,7 @@ def cli() :
         theLexer = load_lexer_from_file(lexerName)
       except err2 :
         print(repr(err2))
-  
+
   if not theLexer :
     print("We could not load any lexers!")
     sys.exit(1)
@@ -108,7 +113,7 @@ def cli() :
       formatterOptions[aKey] = aValue
 
   theFormatter = get_formatter_by_name(
-    'latex', **formatterOptions
+    formatterName, **formatterOptions
   )
 
   with open(inputPath) as inFile :
@@ -118,9 +123,7 @@ def cli() :
     inputStr,
     theLexer,
     theFormatter,
-
   )
 
   with open(outputPath, 'w') as outFile :
     outFile.write(highLightedStr)
-  
