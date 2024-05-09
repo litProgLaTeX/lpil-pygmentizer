@@ -31,23 +31,23 @@ class MetaFunLexer(RegexLexer) :
 
 class TexMetaFunLexer(TexLexer) :
   """
-  Lexer for TeX/LaTex which understands embedded \startMPxxxx \stopMPxxxx
+  Lexer for TeX/LaTex which understands embedded \\startMPxxxx \\stopMPxxxx
   MetaPost/MetaFun enivronments.
   """
   name = "TexMetaFun"
 
   """
-    \startMPcalculation \stopMPcalculation
-    \startMPclip \stopMPclip
-    \startMPcode  \stopMPcode
-    \startMPdefinitions \stopMPdefinitions
-    \startMPdrawing  \stopMPdrawing
-    \startMPextensions \stopMPextensions
-    \startMPinitializations \stopMPinitializations
-    \startMPpage  \stopMPpage
-    \startMPpositiongraphic \stopMPpositiongraphic
-    \startMPrun \stopMPruns
-    \startuseMPgraphic \stopuseMPgrapic
+    \\startMPcalculation \\stopMPcalculation
+    \\startMPclip \\stopMPclip
+    \\startMPcode  \\stopMPcode
+    \\startMPdefinitions \\stopMPdefinitions
+    \\startMPdrawing  \\stopMPdrawing
+    \\startMPextensions \\stopMPextensions
+    \\startMPinitializations \\stopMPinitializations
+    \\startMPpage  \\stopMPpage
+    \\startMPpositiongraphic \\stopMPpositiongraphic
+    \\startMPrun \\stopMPruns
+    \\startuseMPgraphic \\stopuseMPgrapic
 
     metaPostEnvironments = [
       'calculation', 'clip', 'code',
